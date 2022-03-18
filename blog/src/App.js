@@ -1,3 +1,5 @@
+/* esLint-disable */
+
 import './App.css';
 import React, {useState} from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -14,7 +16,8 @@ function App() {
   // 2. useState() 를 이용해 만들어야 함
   // 3. 문자, 숫자, array, object 다 저장 가능
 
-  let [title, setTitle] = useState(['[React] React 설치와 개발환경 셋팅하기', '[React]  JSX 를 이용해 HTML 페이지 제작해보기'])
+  let [title, setTitle] = useState(['[React] React 설치와 개발환경 셋팅하기', '[React]  JSX 를 이용해 HTML 페이지 제작해보기', '[React] React state 변경해보기']);
+  let [thumbsUp, setThumbsUp] = useState(0);
 
   return (
     <div className="App">
@@ -25,12 +28,17 @@ function App() {
       </div>
         <h2 className='intro'>배움에서 가치를 찾는 예비 개발자입니다</h2>
         <div className='list'>
-          <h3>{title[0]}</h3>
+          <h3>{title[0]}<span className='thumbs-up' onClick={ ()=>{ setThumbsUp(thumbsUp + 1) } }>👍</span> {thumbsUp} </h3>
           <p>2022-03-18</p>
           <hr/>
         </div>
         <div className='list'>
           <h3>{title[1]}</h3>
+          <p>2022-03-18</p>
+          <hr/>
+        </div>
+        <div className='list'>
+          <h3>{title[2]}</h3>
           <p>2022-03-18</p>
           <hr/>
         </div>
