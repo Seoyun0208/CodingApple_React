@@ -16,8 +16,21 @@ function App() {
   // 2. useState() 를 이용해 만들어야 함
   // 3. 문자, 숫자, array, object 다 저장 가능
 
-  let [title, setTitle] = useState(['[React] React 설치와 개발환경 셋팅하기', '[React]  JSX 를 이용해 HTML 페이지 제작해보기', '[React] React state 변경해보기']);
+  let [title, setTitle] = useState(['[React] React 설치와 개발환경 셋팅하기', '[React]  JSX 를 이용해 HTML 페이지 제작해보기', '[React] React 에서 state 변경해보기']);
+
   let [thumbsUp, setThumbsUp] = useState(0);
+
+  function changeTitle0() {
+    // title[0] = '[React] React 설치 및 개발환경 셋팅 완료' 와 같이 state 를 직접 수정 불가
+    let newTitle = [...title]; // ! array, object deep copy 하는 방법!
+    newTitle[0] = '[React] React 설치 및 개발환경 셋팅 완료'
+    setTitle(newTitle);
+  }
+
+  function orderTitle() {
+    let newOrder = [...title].sort();
+    setTitle(newOrder);
+  }
 
   return (
     <div className="App">
@@ -42,6 +55,8 @@ function App() {
           <p>2022-03-18</p>
           <hr/>
         </div>
+        <button onClick={ changeTitle0 }>첫번째 글제목 바꾸기</button>
+        <button onClick={ orderTitle }>가나다순으로 정렬하기</button>
     </div>
   );
 }
