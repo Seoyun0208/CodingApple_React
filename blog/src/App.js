@@ -20,6 +20,8 @@ function App() {
 
   let [thumbsUp, setThumbsUp] = useState(0);
 
+  let [modal, setModal] = useState(false);
+
   function changeTitle0() {
     // title[0] = '[React] React 설치 및 개발환경 셋팅 완료' 와 같이 state 를 직접 수정 불가
     let newTitle = [...title]; // ! array, object deep copy 하는 방법!
@@ -39,26 +41,38 @@ function App() {
           <FontAwesomeIcon icon={faStarAndCrescent} /> Seoyun's Blog
           </div>
       </div>
-        <h2 className='intro'>배움에서 가치를 찾는 예비 개발자입니다</h2>
-        <div className='list'>
-          <h3>{title[0]}<span className='thumbs-up' onClick={ ()=>{ setThumbsUp(thumbsUp + 1) } }>👍</span> {thumbsUp} </h3>
-          <p>2022-03-18</p>
-          <hr/>
-        </div>
-        <div className='list'>
-          <h3>{title[1]}</h3>
-          <p>2022-03-18</p>
-          <hr/>
-        </div>
-        <div className='list'>
-          <h3>{title[2]}</h3>
-          <p>2022-03-18</p>
-          <hr/>
-        </div>
-        <button onClick={ changeTitle0 }>첫번째 글제목 바꾸기</button>
-        <button onClick={ orderTitle }>가나다순으로 정렬하기</button>
+      <h2 className='intro'>배움에서 가치를 찾는 예비 개발자입니다</h2>
+      <div className='list'>
+        <h3>{title[0]}<span className='thumbs-up' onClick={ ()=>{ setThumbsUp(thumbsUp + 1) } }>👍</span> {thumbsUp} </h3>
+        <p>2022-03-18</p>
+        <hr/>
+      </div>
+      <div className='list'>
+        <h3>{title[1]}</h3>
+        <p>2022-03-18</p>
+        <hr/>
+      </div>
+      <div className='list'>
+        <h3>{title[2]}</h3>
+        <p>2022-03-18</p>
+        <hr/>
+      </div>
+      <button onClick={ changeTitle0 }>첫번째 글제목 바꾸기</button>
+      <button onClick={ orderTitle }>가나다순으로 정렬하기</button>
+      <button onClick={ ()=>{ setModal(!modal) } }>모달창 여닫기</button>
+      {modal === true ? <Modal /> : null}
     </div>
   );
+}
+
+function Modal(){
+  return (
+    <div className='modal'>
+      <h2>제목</h2>
+      <p>날짜</p>
+      <p>상세내용</p>
+    </div>
+  )
 }
 
 export default App;
