@@ -22,6 +22,10 @@ body {
 	padding: 0 20px;
 }
 
+.list h3:hover {
+	cursor: pointer;
+}
+
 .thumbs-up {
 	margin-left: 10px;
 	cursor: pointer;
