@@ -1,3 +1,4 @@
+/*eslint-disable*/ 
 import React, {useState} from 'react';
 import './App.css';
 import {Navbar, Container, Nav, NavDropdown} from 'react-bootstrap';
@@ -40,25 +41,29 @@ function App() {
       {/* Grid */}
       <div className="container">
         <div className="row">
-          <div className="col-md-4 grid">
-            <img src="https://codingapple1.github.io/shop/shoes1.jpg" />
-            <h5>{shoes[0].title}</h5>
-            <p>{shoes[0].price}</p>
-          </div>
-          <div className="col-md-4 grid">
-            <img src="https://codingapple1.github.io/shop/shoes2.jpg" />
-            <h5>{shoes[1].title}</h5>
-            <p>{shoes[1].price}</p>
-          </div>
-          <div className="col-md-4 grid">
-            <img src="https://codingapple1.github.io/shop/shoes3.jpg" />
-            <h5>{shoes[2].title}</h5>
-            <p>{shoes[2].price}</p>
-          </div>
+
+          {
+            shoes.map((item, idx)=>{
+              return (
+                <Grid shoes={shoes[idx]}/>
+              )
+            })
+          }
+          
         </div>
       </div>
     </div>
   );
+}
+
+function Grid(props) {
+  return (
+    <div className="col-md-4 grid">
+      <img src={'https://codingapple1.github.io/shop/shoes'+ (props.shoes.id + 1 ) +'.jpg'} />
+      <h5>{props.shoes.title}</h5>
+      <p>{props.shoes.content} & {props.shoes.price}</p>
+    </div>
+  )
 }
 
 export default App;
