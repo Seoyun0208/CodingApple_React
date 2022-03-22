@@ -1,8 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import {Navbar, Container, Nav, NavDropdown} from 'react-bootstrap';
+import Data from './data.js'; 
 
 function App() {
+
+  let [shoes, setShoes] = useState(Data);
   return (
     <div className="App">
       {/* Navbar */}
@@ -39,18 +42,18 @@ function App() {
         <div className="row">
           <div className="col-md-4 grid">
             <img src="https://codingapple1.github.io/shop/shoes1.jpg" />
-            <h5>Stinson Sneaker</h5>
-            <p>$64.95</p>
+            <h5>{shoes[0].title}</h5>
+            <p>{shoes[0].price}</p>
           </div>
           <div className="col-md-4 grid">
             <img src="https://codingapple1.github.io/shop/shoes2.jpg" />
-            <h5>Running Shoes</h5>
-            <p>$29.98</p>
+            <h5>{shoes[1].title}</h5>
+            <p>{shoes[1].price}</p>
           </div>
           <div className="col-md-4 grid">
             <img src="https://codingapple1.github.io/shop/shoes3.jpg" />
-            <h5>Hiking Boots</h5>
-            <p>$89.98</p>
+            <h5>{shoes[2].title}</h5>
+            <p>{shoes[2].price}</p>
           </div>
         </div>
       </div>
