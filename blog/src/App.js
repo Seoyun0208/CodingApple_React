@@ -24,6 +24,8 @@ function App() {
 
   let [clickedNum, setClickedNum] = useState(0);
 
+  let [input, setInput] = useState('');
+
   function changeTitle0() {
     // title[0] = '[React] React 설치 및 개발환경 셋팅 완료' 와 같이 state 를 직접 수정 불가
     let newTitle = [...title]; // ! array, object deep copy 하는 방법!
@@ -40,6 +42,12 @@ function App() {
     let newThumbsUp = [...thumbsUp];
     newThumbsUp[idx] = thumbsUp[idx] + 1;
     setThumbsUp(newThumbsUp);
+  }
+
+  function addTitle(input) {
+    let newTitle = [...title];
+    newTitle.unshift(input);
+    setTitle(newTitle);
   }
 
   // function repeatTitle(title) {
@@ -78,6 +86,11 @@ function App() {
           )
         })
       }
+
+      <div className='publish'>
+        <input onChange={ (e)=>{ setInput(e.target.value) } } />
+        <button onClick={()=>{addTitle(input)}}>등록하기</button>
+      </div>
 
       <button onClick={ changeTitle0 }>첫번째 글제목 바꾸기</button>
       <button onClick={ orderTitle }>가나다순으로 정렬하기</button>
