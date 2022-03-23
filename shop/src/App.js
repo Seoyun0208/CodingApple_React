@@ -2,68 +2,62 @@
 import React, {useState} from 'react';
 import './App.css';
 import {Navbar, Container, Nav, NavDropdown} from 'react-bootstrap';
-import Data from './data.js'; 
+import Main from './main'
+
+import { Link, Route, Switch } from 'react-router-dom';
 
 function App() {
 
-  let [shoes, setShoes] = useState(Data);
   return (
     <div className="App">
-      {/* Navbar */}
-      <Navbar bg="light" expand="lg">
-        <Container>
-          <Navbar.Brand href="#home">Shoes shop</Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
-              <Nav.Link href="#home">Home</Nav.Link>
-              <Nav.Link href="#link">Link</Nav.Link>
-              <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-              </NavDropdown>
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
 
-      {/* Main */}
-      <div className="main-visual">
-        <h2>Welcome to visit SHOES.COM!</h2>
-        <hr/>
-        <h1>20% Season Off</h1>
-        <button>SHOP THIS DEAL</button>
-      </div>
+        {/* Navbar */}
+        <Navbar bg="light" expand="lg">
+          <Container>
+            <Navbar.Brand href="#home">Shoes shop</Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="me-auto">
+                <Nav.Link href="#home">Home</Nav.Link>
+                <Nav.Link href="#link">Link</Nav.Link>
+                <NavDropdown title="Dropdown" id="basic-nav-dropdown">
+                  <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+                  <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
+                  <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+                </NavDropdown>
+              </Nav>
+            </Navbar.Collapse>
+          </Container>
+        </Navbar>
 
-      {/* Grid */}
-      <div className="container">
-        <div className="row">
+        {/* Main */}
+      <Route exact path='/'>
+        <Main />
+      </Route>
 
-          {
-            shoes.map((item, idx)=>{
-              return (
-                <Grid shoes={shoes[idx]}/>
-              )
-            })
-          }
-          
+      {/* Detail */}
+      <Route path='/detail'>
+        <div className="container">
+          <div className="row">
+            <div className="col-md-7">
+              <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" />
+            </div>
+            <div className="col-md-5 mt-4">
+              <h4 className="pt-5">상품명</h4>
+              <p>상품설명</p>
+              <p>120000원</p>
+              <button className="btn btn-danger">주문하기</button> 
+            </div>
+          </div>
         </div>
-      </div>
+      </Route>
+      
     </div>
   );
 }
 
-function Grid(props) {
-  return (
-    <div className="col-md-4 grid">
-      <img src={'https://codingapple1.github.io/shop/shoes'+ (props.shoes.id + 1 ) +'.jpg'} />
-      <h5>{props.shoes.title}</h5>
-      <p>{props.shoes.content} & {props.shoes.price}</p>
-    </div>
-  )
-}
+
 
 export default App;
