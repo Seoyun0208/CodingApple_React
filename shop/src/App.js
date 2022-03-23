@@ -4,10 +4,13 @@ import './App.css';
 import {Navbar, Container, Nav, NavDropdown} from 'react-bootstrap';
 import Main from './Main'
 import Detail from './Detail';
+import Data from './data'; 
 
 import { Link, Route, Switch } from 'react-router-dom';
 
 function App() {
+
+  let [shoes, setShoes] = useState(Data);
 
   return (
     <div className="App">
@@ -37,12 +40,12 @@ function App() {
 
           {/* Main */}
           <Route exact path='/'>
-            <Main />
+            <Main shoes={shoes}/>
           </Route>
 
           {/* Detail */}
-          <Route path='/detail'>
-            <Detail />
+          <Route path='/detail/:id'>
+            <Detail shoes={shoes} />
           </Route>
 
         </Switch>

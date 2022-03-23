@@ -1,10 +1,6 @@
 import React, {useState} from 'react';
-import {Navbar, Container, Nav, NavDropdown} from 'react-bootstrap';
-import Data from './data'; 
 
-function Main() {
-
-  let [shoes, setShoes] = useState(Data);
+function Main(props) {
 
     return (
         <>
@@ -21,9 +17,9 @@ function Main() {
           <div className="row">
 
             {
-            shoes.map((item, idx)=>{
+            props.shoes.map((item, idx)=>{
               return (
-                <Grid shoes={shoes[idx]} key={idx} />
+                <Grid shoes={props.shoes[idx]} key={idx} />
                 )
               })
             }
