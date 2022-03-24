@@ -20,14 +20,13 @@ let Title = styled.h1`
 
 function Detail(props) {
 
-  let [timer, setTimer] = useState('my-alert-gold');
+  let [alert, setAlert] = useState(true);
+  let [inputdata, setInputdata] = useState('');
 
   useEffect(()=>{
-      setTimeout(function(){
-        timer = 'my-alert-gold timeout'
-        setTimer(timer);
-    }, 2000);
-  });
+      let timer = setTimeout(()=>{setAlert(false)}, 2000);
+      return ()=>{ clearTimeout(timer)};
+  },[alert]);
 
   let history = useHistory();
   let { id } = useParams();
@@ -41,11 +40,18 @@ function Detail(props) {
       <Box>
         <Title className="darkgrey">Detail</Title>
       </Box>
-      <div className={timer}>
-        <p>
-          재고가 얼마 남지 않았습니다. 구매를 서두르세요!
-        </p>
-      </div>
+
+      <input onChange={e=>setInputdata(e.target.value)}/>
+
+      {
+      alert == true 
+      ? (<div className='my-alert-gold'>
+         <p>
+           재고가 얼마 남지 않았습니다. 구매를 서두르세요!
+          </p>
+        </div>) 
+    : null
+      }
       <div className="row">
         <div className="col-md-7">
           <img src={`https://codingapple1.github.io/shop/shoes${parseInt(findId.id)+1}.jpg`} width="100%" />
