@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useHistory, useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import './Detail.scss';
 
 let Box = styled.div`
   margin: 10px;
@@ -23,10 +24,15 @@ function Detail(props) {
     });
 
     return (
-        <div className="container">
-          <Box>
-            <Title color='#484848'>Detail</Title>
-          </Box>
+      <div className="container">
+        <Box>
+          <Title className="darkgrey">Detail</Title>
+        </Box>
+        <div className="my-alert-gold">
+          <p>
+            재고가 얼마 남지 않았습니다. 구매를 서두르세요!
+          </p>
+        </div>
         <div className="row">
           <div className="col-md-7">
             <img src={`https://codingapple1.github.io/shop/shoes${parseInt(findId.id)+1}.jpg`} width="100%" />

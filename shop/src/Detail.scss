@@ -1,0 +1,36 @@
+$main-color: #484848;
+
+.darkgrey {
+	color: $main-color;
+}
+
+// div.container {
+// 	h4 {
+// 		color: blue;
+// 	}
+
+// 	p {
+// 		color: green;
+// 	}
+// }
+
+@mixin alert() {
+	background: #eee;
+	padding: 15px 20px;
+	max-width: 500px;
+	width: 100%;
+	margin: auto;
+}
+
+.my-alert {
+	@include alert();
+
+	p {
+		margin-bottom: 0;
+	}
+}
+
+.my-alert-gold {
+	@extend .my-alert;
+	background: gold;
+}
