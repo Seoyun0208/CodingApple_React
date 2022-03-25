@@ -21,6 +21,14 @@ function Main(props) {
   let [loadFail, setLoadFail] = useState(false);
   let [view, setView] = useState(true);
 
+  function failTimer(){
+    setTimeout(()=>{
+      setLoadFail(false);
+    },2000)
+    clearTimeout(failTimer);
+  };
+
+
     return (
         <>
         {/* Main */}
@@ -74,6 +82,7 @@ function Main(props) {
                   setLoad(false);
                   setView(false);
                   setLoadFail(true);
+                  failTimer();
                   console.log('상품 데이터를 불러오는 데에 실패했습니다.')
                 });
                }}>상품 더보기</button>
