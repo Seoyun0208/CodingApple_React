@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import axios from 'axios';
 
 function Main(props) {
 
@@ -25,6 +26,18 @@ function Main(props) {
             }
 
           </div>
+          <button className='btn btn-primary' onClick={()=>{ 
+            axios.get('https://codingapple1.github.io/shop/data2.json')
+            .then((result)=>{
+              console.log(result.data);
+              let newData = result.data;
+              props.setShoes([...props.shoes, ...newData]);
+              console.log('상품 데이터를 불러오는 데에 성공했습니다.');
+            })
+            .catch(()=>{
+              console.log('상품 데이터를 불러오는 데에 실패했습니다.')
+            });
+           }}>상품 더보기</button>
         </div>
         </>
     )

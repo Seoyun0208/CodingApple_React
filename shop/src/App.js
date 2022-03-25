@@ -18,12 +18,12 @@ function App() {
         {/* Navbar */}
         <Navbar bg="light" expand="lg">
           <Container>
-            <Navbar.Brand href="#home">Shoes shop</Navbar.Brand>
+            <Navbar.Brand as={Link} to='/'>Shoes shop</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
                 <Nav.Link as={Link} to='/'>Home</Nav.Link>
-                <Nav.Link as={Link} to='/detail'>Detail</Nav.Link>
+                <Nav.Link as={Link} to='/detail/0'>Detail</Nav.Link>
                 <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                   <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                   <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
@@ -40,7 +40,7 @@ function App() {
 
           {/* Main */}
           <Route exact path='/'>
-            <Main shoes={shoes}/>
+            <Main shoes={shoes} setShoes={setShoes} />
           </Route>
 
           {/* Detail */}

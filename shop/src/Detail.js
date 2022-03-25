@@ -41,7 +41,7 @@ function Detail(props) {
         <Title className="darkgrey">Detail</Title>
       </Box>
 
-      <input onChange={e=>setInputdata(e.target.value)}/>
+      {/* <input onChange={e=>setInputdata(e.target.value)}/> */}
 
       {
       alert == true 
