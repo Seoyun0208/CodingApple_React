@@ -8,10 +8,14 @@ import Data from './data';
 
 import { Link, Route, Switch } from 'react-router-dom';
 
+export let leftAllContext = React.createContext();
+
+
 function App() {
 
   let [shoes, setShoes] = useState(Data);
   let [leftAll, setLeftAll] = useState([10, 11, 12]);
+
 
   return (
     <div className="App">
@@ -46,7 +50,9 @@ function App() {
 
           {/* Detail */}
           <Route path='/detail/:id'>
-            <Detail shoes={shoes} setShoes={setShoes} leftAll={leftAll} setLeftAll={setLeftAll}/>
+            <leftAllContext.Provider value={leftAll}>
+              <Detail shoes={shoes} setShoes={setShoes} leftAll={leftAll} setLeftAll={setLeftAll}/>
+            </leftAllContext.Provider>
           </Route>
 
         </Switch>

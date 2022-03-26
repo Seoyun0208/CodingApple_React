@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useHistory, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import './Detail.scss';
+
+import {leftAllContext} from './App.js'
 
 let Box = styled.div`
   margin: 10px;
@@ -48,6 +50,8 @@ function Detail(props) {
       return item.id === parseInt(id);
   });
 
+  let leftAll = useContext(leftAllContext);
+
   return (
     <div className="container">
       <Box>
@@ -73,7 +77,7 @@ function Detail(props) {
           <h4 className="pt-5">{findId.title}</h4>
           <p>{findId.content}</p>
           <p>{findId.price}</p>
-          <LeftInfo leftOne={props.leftAll[findId.id]}/>
+          <LeftInfo leftOne={leftAll[findId.id]}/>
           <button className="btn btn-danger mx-1" onClick={()=>{changeLeftAll(props, findId.id)}}>주문하기</button> 
           <button className="btn btn-danger mx-1" onClick={()=>{history.goBack()}}>뒤로가기</button> 
         </div>
