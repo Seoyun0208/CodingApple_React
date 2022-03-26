@@ -2,8 +2,11 @@ import React, { useEffect, useState, useContext } from "react";
 import { useHistory, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import './Detail.scss';
-
+import {Nav} from 'react-bootstrap';
 import {leftAllContext} from './App.js'
+
+import {CSSTransition} from 'react-transition-group';
+
 
 let Box = styled.div`
   margin: 10px;
@@ -20,23 +23,19 @@ let Title = styled.h1`
 //   componentWillUnmount(){};
 // }
 
-function LeftInfo(props) {
-  return (
-    <p> 재고 : {props.leftOne}</p>
-  )
-}
-
-function changeLeftAll(props, id) {
-  let newLeftAll = [...props.leftAll];
-  newLeftAll[id] = props.leftAll[id] - 1;
-  props.setLeftAll(newLeftAll);
-  console.log(newLeftAll);
-}
+let TabContentTitle = styled.div`
+  font-size: 30px;
+  font-weight: bold;
+  background: #eee;
+  padding:200px 0;
+`
 
 function Detail(props) {
 
   let [alert, setAlert] = useState(true);
   // let [inputdata, setInputdata] = useState('');
+  let [clickedTab, setClickedTab] = useState(0);
+  let [onOff, setOnOff] = useState(false);
 
   useEffect(()=>{
       let timer = setTimeout(()=>{setAlert(false)}, 2000);
@@ -54,6 +53,7 @@ function Detail(props) {
 
   return (
     <div className="container">
+
       <Box>
         <Title className="darkgrey">Detail</Title>
       </Box>
@@ -82,8 +82,53 @@ function Detail(props) {
           <button className="btn btn-danger mx-1" onClick={()=>{history.goBack()}}>뒤로가기</button> 
         </div>
       </div>
+
+      <Nav className="mt-5" variant="tabs" defaultActiveKey="0">
+        <Nav.Item>
+          <Nav.Link eventKey="0" onClick={()=>{setOnOff(false); setClickedTab(0)}}>상세정보</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="1" onClick={()=>{setOnOff(false); setClickedTab(1)}}>리뷰</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="2" onClick={()=>{setOnOff(false); setClickedTab(2)}}>Q&A</Nav.Link>
+        </Nav.Item>
+      </Nav>
+
+      <CSSTransition in={onOff} classNames="show" timeout={1000}>
+        <TabContent clickedTab={clickedTab} setOnOff={setOnOff}/>
+      </CSSTransition>
+
     </div>
   )
+}
+
+function LeftInfo(props) {
+  return (
+    <p> 재고 : {props.leftOne}</p>
+  )
+}
+
+function changeLeftAll(props, id) {
+  let newLeftAll = [...props.leftAll];
+  newLeftAll[id] = props.leftAll[id] - 1;
+  props.setLeftAll(newLeftAll);
+  console.log(newLeftAll);
+}
+
+function TabContent(props) {
+
+  useEffect(()=>{
+    props.setOnOff(true);
+  })
+
+  if (props.clickedTab === 0){
+    return (<TabContentTitle className="mt-5">상세정보 내용입니다.</TabContentTitle>)
+  } else if (props.clickedTab === 1) {
+    return (<TabContentTitle  className="mt-5">리뷰 내용입니다.</TabContentTitle>)
+  } else if (props.clickedTab === 2) {
+    return (<TabContentTitle className="mt-5">Q&A 내용입니다.</TabContentTitle>)
+  }
 }
 
 export default Detail;

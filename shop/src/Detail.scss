@@ -38,3 +38,12 @@ $main-color: #484848;
 	@extend .my-alert;
 	background: gold;
 }
+
+.show-enter {
+	opacity: 0;
+}
+
+.show-enter-active {
+	opacity: 1;
+	transition: all 1000ms;
+}
