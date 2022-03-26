@@ -1,4 +1,4 @@
-export default [
+let Data = [
     {
       id : 0,
       title : "White and Black",
@@ -21,3 +21,4 @@ export default [
     }
   ];
 
+  export default Data;

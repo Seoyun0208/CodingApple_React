@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import { version } from 'styled-components';
 
 
 let Loading = styled.div`
@@ -55,15 +54,15 @@ function Main(props) {
           </div>
           
           {
-            load == true ? (<Loading>로딩중입니다...</Loading>) : null
+            load === true ? (<Loading>로딩중입니다...</Loading>) : null
           }
 
           {
-            loadFail == true ? (<Loading>로딩에 실패했습니다.</Loading>) : null
+            loadFail === true ? (<Loading>로딩에 실패했습니다.</Loading>) : null
           }
           
           {
-            view == true 
+            view === true 
             ?
             (
               <button className='btn btn-primary' onClick={()=>{ 
@@ -98,7 +97,7 @@ function Main(props) {
 function Grid(props) {
     return (
       <div className="col-md-4 grid">
-        <img src={'https://codingapple1.github.io/shop/shoes'+ (props.shoes.id + 1 ) +'.jpg'} />
+        <img src={'https://codingapple1.github.io/shop/shoes'+ (props.shoes.id + 1 ) +'.jpg'} alt='shoes' />
         <h5>{props.shoes.title}</h5>
         <p>{props.shoes.content} & {props.shoes.price}</p>
       </div>
