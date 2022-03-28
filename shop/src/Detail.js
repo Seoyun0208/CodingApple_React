@@ -7,6 +7,8 @@ import {leftAllContext} from './App.js'
 
 import {CSSTransition} from 'react-transition-group';
 
+import { connect } from 'react-redux';
+
 
 let Box = styled.div`
   margin: 10px;
@@ -78,7 +80,11 @@ function Detail(props) {
           <p>{findId.content}</p>
           <p>{findId.price}</p>
           <LeftInfo leftOne={leftAll[findId.id]}/>
-          <button className="btn btn-danger mx-1" onClick={()=>{changeLeftAll(props, findId.id)}}>주문하기</button> 
+          <button className="btn btn-danger mx-1" onClick={()=>{
+            changeLeftAll(props, findId.id);
+            props.dispatch({ type : 'addItem', payload : { item : {findId} } });
+            history.push('/cart')
+            }}>주문하기</button> 
           <button className="btn btn-danger mx-1" onClick={()=>{history.goBack()}}>뒤로가기</button> 
         </div>
       </div>
@@ -113,7 +119,7 @@ function changeLeftAll(props, id) {
   let newLeftAll = [...props.leftAll];
   newLeftAll[id] = props.leftAll[id] - 1;
   props.setLeftAll(newLeftAll);
-  console.log(newLeftAll);
+  // console.log(newLeftAll);
 }
 
 function TabContent(props) {
@@ -131,4 +137,13 @@ function TabContent(props) {
   }
 }
 
-export default Detail;
+function Store(state) {
+
+  return {
+      data : state.reducer,
+      alert : state.reducer2
+  }
+
+}
+
+export default connect(Store)(Detail);

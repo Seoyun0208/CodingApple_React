@@ -46,9 +46,9 @@ function Cart(props) {
                                     <td>{ idx + 1 }</td>
                                     <td>{item.name}</td>
                                     <td>
-                                        <ChangeNum onClick={ ()=>{ props.dispatch({ type : 'plus' }) } }>+</ChangeNum>
+                                        <ChangeNum onClick={ ()=>{ props.dispatch({ type : 'plus' , payload : {id : {idx}} }) } }>+</ChangeNum>
                                             {item.quan}
-                                        <ChangeNum onClick={ ()=>{ props.dispatch({ type : 'minus' }) } }>-</ChangeNum>
+                                        <ChangeNum onClick={ ()=>{ props.dispatch({ type : 'minus', payload : {id : {idx}} }) } }>-</ChangeNum>
                                     </td>
                                     {/* <td>cell</td> */}
                                 </tr>

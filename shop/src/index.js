@@ -16,14 +16,26 @@ let defaultData = [
 ]
 
 function reducer(state = defaultData, action) {
-  if (action.type === 'plus') {
+  if (action.type === 'addItem') {
+      // console.log(action.payload.item);
+      let item = action.payload.item.findId;
       let newState = [...state];
-      newState[0].quan++;
+        newState.push({
+          id : item.id,
+          name : item.title,
+          quan : 1
+        })
+        return newState;
+    } else if (action.type === 'plus') {
+      let id = action.payload.id.idx;
+      let newState = [...state];
+      newState[id].quan++;
       return newState;
     } else if (action.type === 'minus'){
+      let id = action.payload.id.idx;
       let newState = [...state];
-      if (newState[0].quan > 0) {
-        newState[0].quan--;
+      if (newState[id].quan > 0) {
+        newState[id].quan--;
       }
       return newState;
     } else {
@@ -45,13 +57,11 @@ function reducer2(state = defaultAlert, action) {
 let store = createStore(combineReducers({ reducer, reducer2 }));
 
 ReactDOM.render(
-  <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
         <App />
       </Provider>
-    </BrowserRouter>
-  </React.StrictMode>,
+    </BrowserRouter>,
   document.getElementById('root')
 );
 
