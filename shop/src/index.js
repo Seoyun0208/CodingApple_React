@@ -9,13 +9,29 @@ import { BrowserRouter } from 'react-router-dom';
 import {Provider} from 'react-redux';
 import { createStore } from 'redux';
 
-let store = createStore(()=>{ 
-  return [
-    { id : 1, name : 'Red Knit', quan : 2 },
-    { id : 0, name : 'White and Black', quan : 1 },
-    { id : 3, name : 'Flowey', quan : 3 }
-  ] 
-});
+let defaultState = [
+  { id : 1, name : 'Red Knit', quan : 2 },
+  { id : 0, name : 'White and Black', quan : 1 },
+  { id : 3, name : 'Flowey', quan : 3 }  
+]
+
+function reducer(state = defaultState, action) {
+  if (action.type === 'plus') {
+      let newState = [...state];
+      newState[0].quan++;
+      return newState;
+    } else if (action.type === 'minus'){
+      let newState = [...state];
+      if (newState[0].quan > 0) {
+        newState[0].quan--;
+      }
+      return newState;
+    } else {
+      return state;
+    }
+}
+
+let store = createStore(reducer);
 
 ReactDOM.render(
   <React.StrictMode>
