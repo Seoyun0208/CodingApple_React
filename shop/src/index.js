@@ -6,10 +6,23 @@ import reportWebVitals from './reportWebVitals';
 
 import { BrowserRouter } from 'react-router-dom';
 
+import {Provider} from 'react-redux';
+import { createStore } from 'redux';
+
+let store = createStore(()=>{ 
+  return [
+    { id : 1, name : 'Red Knit', quan : 2 },
+    { id : 0, name : 'White and Black', quan : 1 },
+    { id : 3, name : 'Flowey', quan : 3 }
+  ] 
+});
+
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')

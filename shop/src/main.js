@@ -58,7 +58,7 @@ function Main(props) {
           }
 
           {
-            loadFail === true ? (<Loading>로딩에 실패했습니다.</Loading>) : null
+            loadFail === true ? (<Loading>더이상 상품이 없습니다.</Loading>) : null
           }
           
           {

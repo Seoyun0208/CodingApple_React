@@ -4,6 +4,7 @@ import './App.css';
 import {Navbar, Container, Nav, NavDropdown} from 'react-bootstrap';
 import Main from './Main'
 import Detail from './Detail';
+import Cart from './Cart';
 import Data from './data'; 
 
 import { Link, Route, Switch } from 'react-router-dom';
@@ -29,6 +30,7 @@ function App() {
               <Nav className="me-auto">
                 <Nav.Link as={Link} to='/'>Home</Nav.Link>
                 <Nav.Link as={Link} to='/detail/0'>Detail</Nav.Link>
+                <Nav.Link as={Link} to='/cart'>Cart</Nav.Link>
                 <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                   <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                   <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
@@ -53,6 +55,11 @@ function App() {
             <leftAllContext.Provider value={leftAll}>
               <Detail shoes={shoes} setShoes={setShoes} leftAll={leftAll} setLeftAll={setLeftAll}/>
             </leftAllContext.Provider>
+          </Route>
+
+          {/* Cart */}
+          <Route path='/cart'>
+            <Cart />
           </Route>
 
         </Switch>
