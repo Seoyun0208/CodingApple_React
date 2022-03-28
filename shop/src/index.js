@@ -7,15 +7,15 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 
 import {Provider} from 'react-redux';
-import { createStore } from 'redux';
+import { combineReducers, createStore } from 'redux';
 
-let defaultState = [
+let defaultData = [
   { id : 1, name : 'Red Knit', quan : 2 },
   { id : 0, name : 'White and Black', quan : 1 },
   { id : 3, name : 'Flowey', quan : 3 }  
 ]
 
-function reducer(state = defaultState, action) {
+function reducer(state = defaultData, action) {
   if (action.type === 'plus') {
       let newState = [...state];
       newState[0].quan++;
@@ -31,7 +31,18 @@ function reducer(state = defaultState, action) {
     }
 }
 
-let store = createStore(reducer);
+let defaultAlert = true;
+
+function reducer2(state = defaultAlert, action) {
+  if (action.type === 'close') {
+    state = false;
+    return state;
+  } else {
+    return state;
+  }
+}
+
+let store = createStore(combineReducers({ reducer, reducer2 }));
 
 ReactDOM.render(
   <React.StrictMode>
