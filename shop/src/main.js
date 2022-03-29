@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useSelector, useDispatch } from 'react-redux';
 
 
 let Loading = styled.div`
@@ -15,7 +17,7 @@ let Loading = styled.div`
 
 function Main(props) {
 
-  let [count, setCount] = useState(2);
+  // let [count, setCount] = useState(2);
   let [load, setLoad] = useState(false);
   let [loadFail, setLoadFail] = useState(false);
   let [view, setView] = useState(true);
@@ -27,6 +29,8 @@ function Main(props) {
     clearTimeout(failTimer);
   };
 
+  let count = useSelector((state)=>state.reducer3);
+  let dispatch = useDispatch();
 
     return (
         <>
@@ -70,9 +74,7 @@ function Main(props) {
                 axios.get(`https://codingapple1.github.io/shop/data${count}.json`)
                 .then((result)=>{
                   setLoad(false);
-                  setCount(count+1);
-                  // console.log(count);
-                  // console.log(result.data);
+                  dispatch({ type : 'clicked'});
                   let newData = result.data;
                   props.setShoes([...props.shoes, ...newData]);
                   console.log('상품 데이터를 불러오는 데에 성공했습니다.');
@@ -94,15 +96,22 @@ function Main(props) {
     )
 }
 
+let Item = styled.div`
+  &:hover {
+    cursor : pointer;
+  }
+`
+
 function Grid(props) {
+
+    let history = useHistory();
+
     return (
-      <div className="col-md-4 grid">
-          <a href={`/detail/${props.shoes.id}`}>
-            <img src={'https://codingapple1.github.io/shop/shoes'+ (props.shoes.id + 1 ) +'.jpg'} alt='shoes' />
-            <h5>{props.shoes.title}</h5>
-            <p>{props.shoes.content} & {props.shoes.price}</p>
-          </a>
-      </div>
+      <Item className="col-md-4 grid" onClick={()=>{ history.push(`/detail/${props.shoes.id}`) }}>
+          <img src={'https://codingapple1.github.io/shop/shoes'+ (props.shoes.id + 1 ) +'.jpg'} alt='shoes' />
+          <h5>{props.shoes.title}</h5>
+          <p>{props.shoes.content} & {props.shoes.price}</p>
+      </Item>
     )
 }
 
