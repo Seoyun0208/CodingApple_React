@@ -7,7 +7,7 @@ import {leftAllContext} from './App.js'
 
 import {CSSTransition} from 'react-transition-group';
 
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 
 let Box = styled.div`
@@ -20,10 +20,6 @@ let Title = styled.h1`
   font-weight: bold;
   color: ${ props => props.color }
 `
-// class Detail2 extends React.Component {
-//   componentDidMount(){};
-//   componentWillUnmount(){};
-// }
 
 let TabContentTitle = styled.div`
   font-size: 30px;
@@ -34,8 +30,9 @@ let TabContentTitle = styled.div`
 
 function Detail(props) {
 
+  let dispatch = useDispatch();
+
   let [alert, setAlert] = useState(true);
-  // let [inputdata, setInputdata] = useState('');
   let [clickedTab, setClickedTab] = useState(0);
   let [onOff, setOnOff] = useState(false);
 
@@ -55,55 +52,57 @@ function Detail(props) {
 
   return (
     <div className="container">
+      { findId !== undefined ? (
+      <>
+        <Box>
+          <Title className="darkgrey">Detail</Title>
+        </Box>
 
-      <Box>
-        <Title className="darkgrey">Detail</Title>
-      </Box>
-
-      {/* <input onChange={e=>setInputdata(e.target.value)}/> */}
-
-      {
-      alert === true 
-      ? (<div className='my-alert-gold'>
-         <p>
-           재고가 얼마 남지 않았습니다. 구매를 서두르세요!
-          </p>
-        </div>) 
-    : null
-      }
-      <div className="row">
-        <div className="col-md-7">
-          <img src={`https://codingapple1.github.io/shop/shoes${parseInt(findId.id)+1}.jpg`} width="100%" alt="shoes"/>
+        {
+        alert === true 
+        ? (<div className='my-alert-gold'>
+          <p>
+            재고가 얼마 남지 않았습니다. 구매를 서두르세요!
+            </p>
+          </div>) 
+        : null
+        }
+        
+        <div className="row">
+          <div className="col-md-7">
+            <img src={`https://codingapple1.github.io/shop/shoes${parseInt(findId.id)+1}.jpg`} width="100%" alt="shoes"/>
+          </div>
+          <div className="col-md-5 mt-4">
+            <h4 className="pt-5">{findId.title}</h4>
+            <p>{findId.content}</p>
+            <p>{findId.price}</p>
+            <LeftInfo leftOne={leftAll[findId.id]}/>
+            <button className="btn btn-danger mx-1" onClick={()=>{
+              changeLeftAll(props, findId.id);
+              dispatch({ type : 'addItem', payload : { findId } });
+              history.push('/cart')
+              }}>주문하기</button> 
+            <button className="btn btn-danger mx-1" onClick={()=>{history.goBack()}}>뒤로가기</button> 
+          </div>
         </div>
-        <div className="col-md-5 mt-4">
-          <h4 className="pt-5">{findId.title}</h4>
-          <p>{findId.content}</p>
-          <p>{findId.price}</p>
-          <LeftInfo leftOne={leftAll[findId.id]}/>
-          <button className="btn btn-danger mx-1" onClick={()=>{
-            changeLeftAll(props, findId.id);
-            props.dispatch({ type : 'addItem', payload : { item : {findId} } });
-            history.push('/cart')
-            }}>주문하기</button> 
-          <button className="btn btn-danger mx-1" onClick={()=>{history.goBack()}}>뒤로가기</button> 
-        </div>
-      </div>
 
-      <Nav className="mt-5" variant="tabs" defaultActiveKey="0">
-        <Nav.Item>
-          <Nav.Link eventKey="0" onClick={()=>{setOnOff(false); setClickedTab(0)}}>상세정보</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="1" onClick={()=>{setOnOff(false); setClickedTab(1)}}>리뷰</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="2" onClick={()=>{setOnOff(false); setClickedTab(2)}}>Q&A</Nav.Link>
-        </Nav.Item>
-      </Nav>
+        <Nav className="mt-5" variant="tabs" defaultActiveKey="0">
+          <Nav.Item>
+            <Nav.Link eventKey="0" onClick={()=>{setOnOff(false); setClickedTab(0)}}>상세정보</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link eventKey="1" onClick={()=>{setOnOff(false); setClickedTab(1)}}>리뷰</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link eventKey="2" onClick={()=>{setOnOff(false); setClickedTab(2)}}>Q&A</Nav.Link>
+          </Nav.Item>
+        </Nav>
 
-      <CSSTransition in={onOff} classNames="show" timeout={1000}>
-        <TabContent clickedTab={clickedTab} setOnOff={setOnOff}/>
-      </CSSTransition>
+        <CSSTransition in={onOff} classNames="show" timeout={1000}>
+          <TabContent clickedTab={clickedTab} setOnOff={setOnOff}/>
+        </CSSTransition>
+      </>
+      ) : history.push('/') }
 
     </div>
   )
@@ -119,7 +118,6 @@ function changeLeftAll(props, id) {
   let newLeftAll = [...props.leftAll];
   newLeftAll[id] = props.leftAll[id] - 1;
   props.setLeftAll(newLeftAll);
-  // console.log(newLeftAll);
 }
 
 function TabContent(props) {
@@ -137,13 +135,4 @@ function TabContent(props) {
   }
 }
 
-function Store(state) {
-
-  return {
-      data : state.reducer,
-      alert : state.reducer2
-  }
-
-}
-
-export default connect(Store)(Detail);
+export default Detail;

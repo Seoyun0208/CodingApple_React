@@ -1,6 +1,6 @@
 import React from 'react';
 import {Table} from 'react-bootstrap';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 let CartContainer = styled.div`
@@ -27,6 +27,10 @@ let Alert = styled.div`
 `
 
 function Cart(props) {
+
+    let state = useSelector((state)=>state);
+    let dispatch = useDispatch();
+
     return(
         <CartContainer>
             <Table responsive>
@@ -35,22 +39,20 @@ function Cart(props) {
                     <th>#</th>
                     <th>상품명</th>
                     <th>수량</th>
-                    {/* <th>수량 변경</th> */}
                 </tr>
                 </thead>
                 <tbody>
                     {
-                        props.data.map((item, idx)=>{
+                        state.reducer.map((item, idx)=>{
                             return (
                                 <tr key={idx}>
                                     <td>{ idx + 1 }</td>
                                     <td>{item.name}</td>
                                     <td>
-                                        <ChangeNum onClick={ ()=>{ props.dispatch({ type : 'plus' , payload : {id : {idx}} }) } }>+</ChangeNum>
+                                        <ChangeNum onClick={ ()=>{ dispatch({ type : 'plus' , payload : {id : {idx}} }) } }>+</ChangeNum>
                                             {item.quan}
-                                        <ChangeNum onClick={ ()=>{ props.dispatch({ type : 'minus', payload : {id : {idx}} }) } }>-</ChangeNum>
+                                        <ChangeNum onClick={ ()=>{ dispatch({ type : 'minus', payload : {id : {idx}} }) } }>-</ChangeNum>
                                     </td>
-                                    {/* <td>cell</td> */}
                                 </tr>
                             )
                         })
@@ -58,10 +60,10 @@ function Cart(props) {
                 </tbody>
             </Table>
             {
-                props.alert === true ? (
+                state.reducer2 === true ? (
                     <Alert>
                         <span className='me-3'>신규가입시 최대 20% 할인 쿠폰 제공!</span>
-                        <button className='btn btn-outline-danger' onClick={ ()=>{ props.dispatch({ type : 'close' }) } }>닫기</button>
+                        <button className='btn btn-outline-danger' onClick={ ()=>{ dispatch({ type : 'close' }) } }>닫기</button>
                     </Alert>
                 ) : null
             }
@@ -69,14 +71,4 @@ function Cart(props) {
     )
 }
 
-function Store(state) {
-
-    return {
-        data : state.reducer,
-        alert : state.reducer2
-    }
-
-}
-
-export default connect(Store)(Cart);
-// export default Cart;
+export default Cart;

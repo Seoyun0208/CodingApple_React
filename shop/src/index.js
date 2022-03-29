@@ -17,8 +17,8 @@ let defaultData = [
 
 function reducer(state = defaultData, action) {
   if (action.type === 'addItem') {
-      // console.log(action.payload.item);
-      let item = action.payload.item.findId;
+      let item = action.payload.findId;
+      console.log(action.payload);
       let newState = [...state];
         newState.push({
           id : item.id,

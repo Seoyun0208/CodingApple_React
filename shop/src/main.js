@@ -97,9 +97,11 @@ function Main(props) {
 function Grid(props) {
     return (
       <div className="col-md-4 grid">
-        <img src={'https://codingapple1.github.io/shop/shoes'+ (props.shoes.id + 1 ) +'.jpg'} alt='shoes' />
-        <h5>{props.shoes.title}</h5>
-        <p>{props.shoes.content} & {props.shoes.price}</p>
+          <a href={`/detail/${props.shoes.id}`}>
+            <img src={'https://codingapple1.github.io/shop/shoes'+ (props.shoes.id + 1 ) +'.jpg'} alt='shoes' />
+            <h5>{props.shoes.title}</h5>
+            <p>{props.shoes.content} & {props.shoes.price}</p>
+          </a>
       </div>
     )
 }
