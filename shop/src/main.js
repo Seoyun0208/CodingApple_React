@@ -3,6 +3,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { useSelector, useDispatch } from 'react-redux';
+import Watched from './Watched';
 
 
 let Loading = styled.div`
@@ -44,6 +45,8 @@ function Main(props) {
 
         {/* Grid */}
         <div className="container">
+
+        <Watched shoesAll={props.shoesAll} setShoesAll={props.setShoesAll}/>
 
           <div className="row">
 

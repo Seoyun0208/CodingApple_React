@@ -9,6 +9,8 @@ import {CSSTransition} from 'react-transition-group';
 
 import { useDispatch } from 'react-redux';
 
+import Watched from './Watched'
+
 
 let Box = styled.div`
   margin: 10px;
@@ -50,6 +52,16 @@ function Detail(props) {
 
   let leftAll = useContext(leftAllContext);
 
+  useEffect(()=>{
+    if (localStorage.watched === undefined ) {
+      localStorage.setItem('watched', JSON.stringify([]));
+    }
+    let watched = JSON.parse(localStorage.getItem('watched'));
+    watched.unshift(id);
+    watched = [...new Set(watched)].slice(0,3);
+    localStorage.setItem('watched', JSON.stringify(watched));
+  }, [])
+
   return (
     <div className="container">
       { findId !== undefined ? (
@@ -58,21 +70,22 @@ function Detail(props) {
           <Title className="darkgrey">Detail</Title>
         </Box>
 
-        {
-        alert === true 
-        ? (<div className='my-alert-gold'>
-          <p>
-            재고가 얼마 남지 않았습니다. 구매를 서두르세요!
-            </p>
-          </div>) 
-        : null
-        }
-        
         <div className="row">
+          <div className="col-md-12">
+            {
+            alert === true 
+            ? (<div className='my-alert-gold'>
+              <p>
+                재고가 얼마 남지 않았습니다. 구매를 서두르세요!
+                </p>
+              </div>) 
+            : null
+            }
+          </div>
           <div className="col-md-7">
             <img src={`https://codingapple1.github.io/shop/shoes${parseInt(findId.id)+1}.jpg`} width="100%" alt="shoes"/>
           </div>
-          <div className="col-md-5 mt-4">
+          <div className="col-md-3 mt-4">
             <h4 className="pt-5">{findId.title}</h4>
             <p>{findId.content}</p>
             <p>{findId.price}</p>
@@ -83,6 +96,9 @@ function Detail(props) {
               history.push('/cart')
               }}>주문하기</button> 
             <button className="btn btn-danger mx-1" onClick={()=>{history.goBack()}}>뒤로가기</button> 
+          </div>
+          <div className="col-md-2">
+           <Watched shoesAll={props.shoesAll} setShoesAll={props.setShoesAll}/>
           </div>
         </div>
 

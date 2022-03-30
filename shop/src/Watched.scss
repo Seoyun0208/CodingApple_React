@@ -1,0 +1,47 @@
+$main-color: #484848;
+$sub-color: darkgrey;
+
+* {
+	margin: 0;
+}
+
+.watched {
+	position: sticky;
+	margin-top: 30px;
+	margin-left: 30px;
+	top: 400px;
+	float: right;
+	right: 30px;
+	background: #eee;
+	width: 150px;
+	height: 520px;
+	border-radius: 10px;
+
+	.item {
+		color: $main-color;
+		font-weight: bold;
+		margin: 0 10px;
+		padding: 20px 2px;
+		font-size: 18px;
+		border-bottom: 5px double $sub-color;
+	}
+
+	.watched-item {
+		margin-top: 20px;
+
+		img {
+			width: 80%;
+		}
+
+		.name {
+			font-size: 16px;
+			margin: 0px 10px;
+			padding: 10px 0;
+			border-bottom: 1px dashed $sub-color;
+		}
+
+		&:hover {
+			cursor: pointer;
+		}
+	}
+}

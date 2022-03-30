@@ -2,6 +2,7 @@ import React from 'react';
 import {Table} from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import Watched from './Watched';
 
 let CartContainer = styled.div`
     border: 5px solid lightgrey;
@@ -32,42 +33,45 @@ function Cart(props) {
     let dispatch = useDispatch();
 
     return(
-        <CartContainer>
-            <Table responsive>
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>상품명</th>
-                    <th>수량</th>
-                </tr>
-                </thead>
-                <tbody>
-                    {
-                        state.reducer.map((item, idx)=>{
-                            return (
-                                <tr key={idx}>
-                                    <td>{ idx + 1 }</td>
-                                    <td>{item.name}</td>
-                                    <td>
-                                    <ChangeNum onClick={ ()=>{ dispatch({ type : 'minus', payload : idx }) } }>-</ChangeNum>
-                                        {item.quan}
-                                    <ChangeNum onClick={ ()=>{ dispatch({ type : 'plus' , payload : idx }) } }>+</ChangeNum>
-                                    </td>
-                                </tr>
-                            )
-                        })
-                    }
-                </tbody>
-            </Table>
-            {
-                state.reducer2 === true ? (
-                    <Alert>
-                        <span className='me-3'>신규가입시 최대 20% 할인 쿠폰 제공!</span>
-                        <button className='btn btn-outline-danger' onClick={ ()=>{ dispatch({ type : 'close' }) } }>닫기</button>
-                    </Alert>
-                ) : null
-            }
-        </CartContainer>
+        <div className='row'>
+            <CartContainer className='col-md-9'>
+                <Table responsive>
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>상품명</th>
+                        <th>수량</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            state.reducer.map((item, idx)=>{
+                                return (
+                                    <tr key={idx}>
+                                        <td>{ idx + 1 }</td>
+                                        <td>{item.name}</td>
+                                        <td>
+                                        <ChangeNum onClick={ ()=>{ dispatch({ type : 'minus', payload : idx }) } }>-</ChangeNum>
+                                            {item.quan}
+                                        <ChangeNum onClick={ ()=>{ dispatch({ type : 'plus' , payload : idx }) } }>+</ChangeNum>
+                                        </td>
+                                    </tr>
+                                )
+                            })
+                        }
+                    </tbody>
+                </Table>
+                {
+                    state.reducer2 === true ? (
+                        <Alert>
+                            <span className='me-3'>신규가입시 최대 20% 할인 쿠폰 제공!</span>
+                            <button className='btn btn-outline-danger' onClick={ ()=>{ dispatch({ type : 'close' }) } }>닫기</button>
+                        </Alert>
+                    ) : null
+                }
+            </CartContainer>
+            <Watched className='col-md-2' shoesAll={props.shoesAll} setShoesAll={props.setShoesAll}/>
+        </div>
     )
 }
 
