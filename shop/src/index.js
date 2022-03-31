@@ -9,11 +9,7 @@ import { BrowserRouter } from 'react-router-dom';
 import {Provider} from 'react-redux';
 import { combineReducers, createStore } from 'redux';
 
-let defaultData = [
-  { id : 1, name : 'Red Knit', quan : 2 },
-  { id : 0, name : 'White and Black', quan : 1 },
-  { id : 3, name : 'Flowey', quan : 3 }  
-]
+let defaultData = []
 
 function reducer(state = defaultData, action) {
   if (action.type === 'addItem') {
